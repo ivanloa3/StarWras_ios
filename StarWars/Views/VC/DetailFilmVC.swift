@@ -14,15 +14,22 @@ class DetailFilmVC : UIViewController {
     var charcaters : [CharactersDP] = []
     var vehicles : [VehiclesDP] = []
     var planets : [PlanetsDP] = []
+    var starships : [StarshipsDP] = []
+    var species : [SpeciesDP] = []
     
     var time : Int!
     
     @IBOutlet weak var gifView: UIImageView!
-
     @IBOutlet weak var curtainView: UIView!
+    
+    @IBOutlet weak var labael_episode: UILabel!
     @IBOutlet weak var label_nombreDirector: UILabel!
+    @IBOutlet weak var label_producer: UILabel!
+    
     @IBOutlet weak var ta_descripcion: UITextView!
-    @IBOutlet weak var label_relazeDate: UILabel!
+    
+    @IBOutlet weak var label_releaseDate: UILabel!
+    
     var timer = Timer()
     
     @objc func action(){
@@ -51,6 +58,8 @@ class DetailFilmVC : UIViewController {
         let charactersURL = film.getCharacterURL()
         let vehiclesURL = film.getVehiclesURL()
         let planetsURL = film.getPlanetsURL()
+        let starshipsURL = film.getStarshipsURL()
+        let speciesURL = film.getSpeciesURL()
         
         print("character: \(charactersURL.count)")
         print("vehicles: \(vehiclesURL.count)")
@@ -73,7 +82,18 @@ class DetailFilmVC : UIViewController {
             for i in 0...planetsURL.count-1{
                 controller.getPlanet(planetURL: planetsURL[i])
             }
-            
+        }
+        
+        if starshipsURL.count > 0{
+            for i in 0...starshipsURL.count-1{
+                controller.getStarship(starshipURL: starshipsURL[i])
+            }
+        }
+        
+        if speciesURL.count > 0{
+            for i in 0...speciesURL.count-1{
+                controller.getSpecie(specieURL: speciesURL[i])
+            }
         }
 
     }
@@ -83,9 +103,13 @@ class DetailFilmVC : UIViewController {
     }
 
     func setValues(){
+        labael_episode.text = "\(film.getEpisodeId())"
         label_nombreDirector.text = film.getDirector()
+        label_producer.text = film.getProducer()
+        label_releaseDate.text = "Release Date: \(film.getRelease_date())"
         ta_descripcion.text = film.getOpeningCrawl()
-        label_relazeDate.text = "Relase Date: \(film.getRelease_date())"
+        
+        //label_relazeDate.text = "Relase Date: \(film.getRelease_date())"
     }
     
     @IBAction func bCharacters(_ sender: Any) {
@@ -119,7 +143,23 @@ class DetailFilmVC : UIViewController {
         
     }
     
+    @IBAction func bStarships(_ sender: Any) {
+        let starshipsCVC = self.storyboard?.instantiateViewController(withIdentifier: "StarshipCVC") as! StarshipCVC
+        
+        starshipsCVC.title_episode = film.getTitle()
+        starshipsCVC.starships = self.starships
+        
+        self.navigationController?.pushViewController(starshipsCVC, animated: true)
+    }
     
+    @IBAction func bSpecies(_ sender: Any) {
+        let speciesTVC = self.storyboard?.instantiateViewController(withIdentifier: "SpeciesTVC") as! SpeciesTVC
+        
+        speciesTVC.title_episode = film.getTitle()
+        speciesTVC.species = self.species
+        
+        self.navigationController?.pushViewController(speciesTVC, animated: true)
+    }
     
     
 }

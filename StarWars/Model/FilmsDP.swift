@@ -6,19 +6,23 @@
 //  Copyright © 2017 Ivan Lopez Ansaldo. All rights reserved.
 //
 
+import UIKit
+
 class FilmsDP {
     
-    var title : String!
-    var episode_id : Int!
-    var opening_crawl : String!
-    var director : String!
-    var producer : String!
-    var release_date : String!
-    var charactersURL : [String]!
-    var planetsURL : [String]!
-    var vehiclesURL : [String]!
-    var created : String!
-    var edited : String!
+    private var title : String!
+    private var episode_id : Int!
+    private var opening_crawl : String!
+    private var director : String!
+    private var producer : String!
+    private var release_date : String!
+    private var charactersURL : [String]!
+    private var planetsURL : [String]!
+    private var vehiclesURL : [String]!
+    private var starshipsURL : [String]!
+    private var speciesURL : [String]!
+    private var created : String!
+    private var edited : String!
     
     
     init (){}
@@ -39,6 +43,8 @@ class FilmsDP {
         self.charactersURL = dictionary["characters"] as! [String]
         self.vehiclesURL = dictionary["vehicles"] as! [String]
         self.planetsURL = dictionary["planets"] as! [String]
+        self.starshipsURL = dictionary["starships"] as! [String]
+        self.speciesURL = dictionary["species"] as! [String]
     }
     
     func getTitle() -> String{
@@ -66,11 +72,32 @@ class FilmsDP {
     }
     
     func getCreated() -> String{
-        return self.created!
+        
+        var splitCreated = self.created.split(separator: "T")
+        let nCreated = splitCreated[0]
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = formatter.date(from: String(nCreated))
+        let strCreated = formatter.string(from: date!)
+        
+        return strCreated
     }
     
     func getEdited() -> String{
-        return self.edited!
+        var splitCreated = self.edited.split(separator: "T")
+        let nCreated = splitCreated[0]
+        
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd"
+        
+        let date = formatter.date(from: String(nCreated))
+        let strCreated = formatter.string(from: date!)
+        
+        return strCreated
     }
     
     func getCharacterURL() -> [String]{
@@ -83,5 +110,13 @@ class FilmsDP {
     
     func getPlanetsURL() -> [String]{
         return self.planetsURL!
+    }
+    
+    func getStarshipsURL() -> [String]{
+        return self.starshipsURL!
+    }
+    
+    func getSpeciesURL() -> [String]{
+        return self.speciesURL!
     }
 }

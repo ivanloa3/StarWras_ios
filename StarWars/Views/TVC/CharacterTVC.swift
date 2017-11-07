@@ -37,6 +37,15 @@ class CharacterTVC : UIViewController, UITableViewDelegate, UITableViewDataSourc
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailCharacter = self.storyboard?.instantiateViewController(withIdentifier: "DetailCharacter") as! DetailCharacter
+        
+        detailCharacter.character = characters[indexPath.row]
+        
+        self.navigationController?.pushViewController(detailCharacter, animated: true)
+        
+    }
+    
 }
 
 

@@ -1,27 +1,27 @@
 //
-//  NaveCVC.swift
+//  StarshipCVC.swift
 //  StarWars
 //
-//  Created by Ivan Lopez Ansaldo on 10/29/17.
+//  Created by Ivan Lopez Ansaldo on 11/6/17.
 //  Copyright © 2017 Ivan Lopez Ansaldo. All rights reserved.
 //
 
 import UIKit
 
-class NaveCVC : UIViewController, UICollectionViewDataSource, UICollectionViewDelegate{
+class StarshipCVC : UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
     
-    @IBOutlet weak var collectionVehicle: UICollectionView!
+    @IBOutlet weak var collectionStarship: UICollectionView!
     
-    var vehicles : [VehiclesDP] = []
+    var starships : [StarshipsDP] = []
     var title_episode : String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Vehicles of \(title_episode!)"
+        self.navigationItem.title = "Starships of \(title_episode!)"
         
-        self.collectionVehicle.delegate = self
-        self.collectionVehicle.dataSource = self
+        self.collectionStarship.delegate = self
+        self.collectionStarship.dataSource = self
         
         let itemSize =  UIScreen.main.bounds.width/3 - 3
         
@@ -32,7 +32,7 @@ class NaveCVC : UIViewController, UICollectionViewDataSource, UICollectionViewDe
         layout.minimumInteritemSpacing = 3
         layout.minimumLineSpacing = 3
         
-        collectionVehicle.collectionViewLayout = layout
+        collectionStarship.collectionViewLayout = layout
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,29 +40,27 @@ class NaveCVC : UIViewController, UICollectionViewDataSource, UICollectionViewDe
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return vehicles.count
+        return starships.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = self.collectionVehicle.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CellNave
+        let cell = self.collectionStarship.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! StarshipCell
         
-        cell.label_vehicleName.text = vehicles[indexPath.row].getName()
+        cell.label_name.text = starships[indexPath.row].getName()
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let detailVehicle = self.storyboard?.instantiateViewController(withIdentifier: "DetailVehicle") as! DetailVehicle
+        let detailStarship = self.storyboard?.instantiateViewController(withIdentifier: "DetailStarship") as! DetailStarship
         
-        detailVehicle.vehicle = vehicles[indexPath.row]
+        detailStarship.starship = starships[indexPath.row]
         
-        self.navigationController?.pushViewController(detailVehicle, animated: true)
+        self.navigationController?.pushViewController(detailStarship, animated: true)
     }
-    
 }
 
-class CellNave : UICollectionViewCell{
-    
-    @IBOutlet weak var label_vehicleName: UILabel!
+class StarshipCell : UICollectionViewCell{
+    @IBOutlet weak var label_name: UILabel!
 }

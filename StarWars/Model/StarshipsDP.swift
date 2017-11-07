@@ -1,27 +1,29 @@
 //
-//  VehiclesDP.swift
+//  StarshipsDP.swift
 //  StarWars
 //
-//  Created by Ivan Lopez Ansaldo on 10/27/17.
+//  Created by Ivan Lopez Ansaldo on 11/6/17.
 //  Copyright © 2017 Ivan Lopez Ansaldo. All rights reserved.
 //
 
-class VehiclesDP{
+class StarshipsDP {
     
-    var name : String!
-    var model : String!
-    var manufacturer : String!
-    var cost_in_credits : String!
-    var length : String!
-    var max_atmosphering_speed : String!
-    var crew : String!
-    var passengers : String!
-    var cargo_capacity : String!
-    var consumables : String!
-    var vehicle_class : String!
+    private var name : String!
+    private var model : String!
+    private var manufacturer : String!
+    private var cost_in_credits : String!
+    private var length : String!
+    private var max_atmosphering_speed : String!
+    private var crew : String!
+    private var passengers : String!
+    private var cargo_capacity : String!
+    private var consumables : String!
+    private var hyperdrive_rating : String!
+    private var MGLT : String!
+    private var starship_class : String!
     
-    init(vehicle : Any) {
-        let dictionary = vehicle as! [String:Any]
+    init(starship : Any) {
+        let dictionary = starship as! [String:Any]
         
         self.name = dictionary["name"] as! String
         self.model = dictionary["model"] as! String
@@ -33,7 +35,9 @@ class VehiclesDP{
         self.passengers = dictionary["passengers"] as! String
         self.cargo_capacity = dictionary["cargo_capacity"] as! String
         self.consumables = dictionary["consumables"] as! String
-        self.vehicle_class = dictionary["vehicle_class"] as! String
+        self.hyperdrive_rating = dictionary["hyperdrive_rating"] as! String
+        self.MGLT = dictionary["MGLT"] as! String
+        self.starship_class = dictionary["starship_class"] as! String
         
     }
     
@@ -77,7 +81,16 @@ class VehiclesDP{
         return self.consumables!
     }
     
-    func getVehicle_class() -> String{
-        return self.vehicle_class!
+    func getHyperdrive_rating() -> String{
+        return self.hyperdrive_rating!
     }
+    
+    func getMGLT() -> String{
+        return self.MGLT!
+    }
+    
+    func getStarship_class() -> String{
+        return self.starship_class!
+    }
+    
 }

@@ -18,7 +18,7 @@ class PlanetTVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "Vehicles of \(title_episode!)"
+        self.navigationItem.title = "Planets of \(title_episode!)"
     }
     
     override func didReceiveMemoryWarning() {
@@ -37,7 +37,14 @@ class PlanetTVC : UIViewController, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let planet = self.storyboard?.instantiateViewController(withIdentifier: "DetailPlanet") as! DetailPlanet
+        
+        planet.planet = planets[indexPath.row]
+        
+        self.navigationController?.pushViewController(planet, animated: true)
+    }
+
 }
 
 class CellPlanet : UITableViewCell{

@@ -226,4 +226,77 @@ class ControllerAD {
             }.resume()
     }
     
+    func getStarship(starshipURL : String){
+        guard let url = URL(string: starshipURL) else { return }
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) {(data, response, error) in
+            if let response = response{
+                print("Response: \(response)")
+            }
+            
+            if let data = data {
+                do{
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    
+                    
+                    let starship = StarshipsDP(starship : json)
+                    
+                    
+                    DispatchQueue.main.async{
+                        
+                        self.detalleFilm.starships.insert(starship, at: self.detalleFilm.starships.count)
+                        
+                    }
+                    
+                    //print("JSON: \(json)")
+                    
+                }catch{
+                    print("Error: \(error)")
+                }
+            }
+            }.resume()
+    }
+    
+    func getSpecie(specieURL : String){
+        guard let url = URL(string: specieURL) else { return }
+        
+        var request = URLRequest(url:url)
+        request.httpMethod = "GET"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        let session = URLSession.shared
+        
+        session.dataTask(with: request) {(data, response, error) in
+            if let response = response{
+                print("Response: \(response)")
+            }
+            
+            if let data = data {
+                do{
+                    let json = try JSONSerialization.jsonObject(with: data, options: [])
+                    
+                    
+                    let specie = SpeciesDP(specie : json)
+                    
+                    
+                    DispatchQueue.main.async{
+                        
+                        self.detalleFilm.species.insert(specie, at: self.detalleFilm.species.count)
+                        
+                    }
+                    
+                    //print("JSON: \(json)")
+                    
+                }catch{
+                    print("Error: \(error)")
+                }
+            }
+            }.resume()
+    }
 }
